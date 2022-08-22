@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class comment extends Model
 {
     use HasFactory;
-    protected $fillable=[
+    protected $fillable = [
         'user_id',
         'product_id',
         'title',
         'positive_points',
         'cons',
         'comment',
-        'Unknown'];
+        'Unknown',
+        ];
 
     public function product()
     {
