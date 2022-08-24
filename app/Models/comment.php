@@ -18,9 +18,9 @@ class comment extends Model
         'Unknown',
         ];
 
-    public function product()
+    public function Product()
     {
-        return $this->belongsTo(product::class);
+        return $this->belongsTo(Product::class);
     }
     public function user()
     {

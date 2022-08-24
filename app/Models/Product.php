@@ -20,14 +20,12 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
-
-    //
-    //
-    //
-
-
     public function description()
     {
         return $this->hasMany(Description::class);
+    }
+    public function comment()
+    {
+        return $this->hasMany(comment::class);
     }
 }

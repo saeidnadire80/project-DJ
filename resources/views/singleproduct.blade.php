@@ -1,4 +1,10 @@
-<!doctype html>
+<?php
+    $a=\App\Models\comment::query()->where('confirmation',1);
+    foreach ($a->get() as $item)
+        echo $item->comment;
+    exit();
+?>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +13,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
 <style>
     .rating {
         --dir: right;
@@ -82,11 +87,19 @@
         box-shadow: var(--w) 0 0 var(--w) var(--fill);
     }
 </style>
+<body>
 <form action="form" method="post">
     @csrf
-    <label class="rating-label"><strong>No JS, using <code>box-shadow</code></strong>
-        <input class="rating rating--nojs" max="5" step="1" name="star" type="range" value="3">
-    </label>
+    <input class="rating rating--nojs" max="5" step="1" name="star" type="range">
+    <input type="hidden" name="id_product" value="<?= $_GET['id_product']?>">
+    <input type="text" name="title" id="title">
+    <input type="text" name="positive_points" id="">
+    <input type="text" name="cons" id="">
+    <input type="text" name="comment" id="">
+    <input type="radio" name="Unknown" value="Unknown">
+    @error('comment')
+    {{$message}}
+    @enderror
     <input type="submit">
 </form>
 </div>

@@ -19,11 +19,13 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->string('title');
-            $table->string('positive_points');
-            $table->string('cons');
-            $table->string('comment');
-            $table->boolean('Unknown')->default(0);
+            $table->string('title')->nullable(true);
+            $table->string('positive_points')->nullable(true);
+            $table->string('cons')->nullable(true);
+            $table->text('comment');
+            $table->string('Unknown')->nullable(true);
+            $table->text('Score')->default(0);
+            $table->boolean('approved')->default(0);
             $table->timestamps();
         });
     }
