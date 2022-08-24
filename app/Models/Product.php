@@ -24,8 +24,8 @@ class Product extends Model
     {
         return $this->hasMany(Description::class);
     }
-    public function comment()
+    public function comments()
     {
-        return $this->hasMany(comment::class);
+        return $this->morphMany(comment::class,'commentable');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\CommentValidations;
 
@@ -33,3 +34,11 @@ Route::GET('single/comment' , function (){
 });
 Route::post('single/form',[\App\Http\Controllers\user\Comment::class,'create']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::POST('single/s' , function (){
+    $product=Product::query()->find($_POST['product_id']);
+    $product->comments()->create([
+        'user_id' => auth()->id(),
+        'parent_id' => $_POST['id'],
+        'comment' =>'ddasds',
+        ]);
+});

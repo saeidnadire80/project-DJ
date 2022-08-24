@@ -1,8 +1,7 @@
 <?php
-    $a=\App\Models\comment::query()->where('confirmation',1);
-    foreach ($a->get() as $item)
-        echo $item->comment;
-    exit();
+
+
+
 ?>
     <!doctype html>
 <html lang="en">
@@ -86,8 +85,44 @@
     [dir="rtl"] .rating--nojs::-webkit-slider-thumb {
         box-shadow: var(--w) 0 0 var(--w) var(--fill);
     }
+     .card {
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+         max-width: 300px;
+         margin: auto;
+         text-align: center;
+         font-family: arial;
+     }
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .card button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .card button:hover {
+        opacity: 0.7;
+    }
 </style>
 <body>
+@guest()
+<h2 style="text-align:center">Product Card</h2>
+@endguest
+@auth()
+@include('layouts.comment',['comments' => \App\Models\comment::query()->where('approved',true)->get(),'id_product' => $_GET['id_product']])
+@endauth
+
+
 <form action="form" method="post">
     @csrf
     <input class="rating rating--nojs" max="5" step="1" name="star" type="range">

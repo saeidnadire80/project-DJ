@@ -10,7 +10,7 @@ class comment extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'product_id',
+        'parent_id',
         'title',
         'positive_points',
         'cons',
@@ -25,5 +25,15 @@ class comment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
+
+    public function child()
+    {
+        return $this->hasMany(comment::class,'parent_id','id');
     }
 }
