@@ -31,58 +31,33 @@
                             {{$error}}
                         </div>
                     @endforeach
-
-                    <form action="{{route('operation_add_product')}}" method="post" enctype="multipart/form-data">
+                    @if(isset($successful))
+                        <div class="card border-3">
+                            {{$successful}}
+                        </div>
+                    @endif
+                    <form action="{{route('operation_add_image')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <!-- 2 column grid layout with text inputs for the first and last names -->
                         <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="form-outline">
-                                    <label class="form-label" for="form3Example1">Name_Product</label>
-                                    <input type="text" id="form3Example1" value="" class="form-control" name="name_product" maxlength="50" />
-
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="form-outline">
-                                    <label class="form-label" for="form3Example2">Price</label>
-                                    <input type="text" id="form3Example2" value="" class="form-control" name="price" maxlength="50" />
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Email input -->
+                        <b><p class="card border-4" style="font-size: 20px;">Images</p></b>
+                        <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form3Example3">Discount_Price</label>
-                            <input type="text" id="form3Example3" value="" class="form-control" name="discount_price" maxlength="150" />
-
-                        </div>
-
-                        <p class="card border-4"><b>Description</b></p>
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="form3Example3">Color</label>
-                            <input type="text" id="form3Example3" value="" class="form-control" name="color" maxlength="150" />
-
+                            <label class="form-label" for="form3Example4">Image_1</label>
+                            <input type="file" name="image_1" class="form-control bg-success" >
                         </div>
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form3Example3">Weight</label>
-                            <input type="text" id="form3Example3" value="" class="form-control" name="weight" maxlength="150" />
-
+                            <label class="form-label" for="form3Example4">Image_2</label>
+                            <input type="file" name="image_2" class="form-control bg-success" >
                         </div>
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form3Example3">Description</label>
-                            <input type="text" id="form3Example3" value="" class="form-control" name="description" maxlength="150" />
-
+                            <label class="form-label" for="form3Example4">Image_3</label>
+                            <input type="file" name="image_3" class="form-control bg-success" >
                         </div>
-
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form3Example3">plan</label>
-                            <input type="text" id="form3Example3" value="" class="form-control" name="plan" maxlength="150" />
-
+                            <label class="form-label" for="form3Example4">Image_4</label>
+                            <input type="file" name="image_4" class="form-control bg-success" >
                         </div>
-
                         <!-- Submit button -->
                         <!--                        <button type="submit" class="btn btn-primary btn-block mb-4" name="send" value="send">-->
                         <!--                            Sign up-->
@@ -101,13 +76,6 @@
                         <!--                        --><?php //} ?>
 
                     </form>
-                    @if(isset($successful))
-                        <div class="card border-3">
-                            {{$successful}}
-                        </div>
-                        <a href="{{route('add_image')}}">Add Image</a>
-                    @endif
-
                 </div>
             </div>
         </div>

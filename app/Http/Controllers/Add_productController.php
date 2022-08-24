@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Add_productRequest;
 use App\Models\Description;
 use App\Models\Image;
 use App\Models\Product;
@@ -15,25 +16,13 @@ class Add_productController extends Controller
         return view('add_product');
     }
 
-    public function operation_add_product(Request $request)
+    public function operation_add_product(Add_productRequest $request)
     {
         $product=Product::query()->create([
             'name_product'=>$request->name_product,
             'price'=>$request->price,
             'discount_price'=>$request->discount_price
         ]);
-        if ($product){
-            foreach ($request->file() as $item){
-                $s_image=File_move::move($item,'image');
-                if ($s_image) {
-                    Image::query()->create([
-                        'product_id' => Product::all()->last()->id,
-                        'image' => $item->getClientOriginalName()
-                    ]);
-                }
-
-            }
-        }
         if ($product){
             Description::query()->create([
                 'product_id'=>Product::all()->last()->id,
@@ -43,9 +32,7 @@ class Add_productController extends Controller
                 'description'=>$request->description
             ]);
         }
-
-        return redirect()->back();
-
+        return view('add_product',['successful'=>'create product successful']);
 
     }
 }

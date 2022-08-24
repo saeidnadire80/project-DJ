@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('color')->nullable();
             $table->string('weight')->nullable();
-            $table->text('description')->nullable();
             $table->string('plan')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
