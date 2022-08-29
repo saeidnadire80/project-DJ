@@ -13,22 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->default(0);
             $table->unsignedBigInteger('commentable_id');
             $table->string('commentable_type');
-            $table->string('title')->nullable(true);
-            $table->string('positive_points')->nullable(true);
-            $table->string('cons')->nullable(true);
-            $table->text('comment');
-            $table->string('Unknown')->nullable(true);
-            $table->text('Score')->default(0);
+            $table->string('Question')->default(0);
+            $table->string('answer')->default(0);
             $table->boolean('approved')->default(0);
             $table->timestamps();
         });
-
     }
 
     /**
@@ -38,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('questions');
     }
 };

@@ -10,7 +10,6 @@ class comment extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'parent_id',
         'title',
         'positive_points',
         'cons',
@@ -32,8 +31,4 @@ class comment extends Model
         return $this->morphTo();
     }
 
-    public function child()
-    {
-        return $this->hasMany(comment::class,'parent_id','id');
-    }
 }

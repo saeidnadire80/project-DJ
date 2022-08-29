@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use \App\Models\comment as comments;
 
+
 class Comment extends Controller
 {
     public function index()

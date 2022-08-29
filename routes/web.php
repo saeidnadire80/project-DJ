@@ -3,7 +3,7 @@
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\CommentValidations;
-
+Use Illuminate\Console\View\Components\Alert;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +27,7 @@ Route::get('comment', function (){
     return view('comment');
 });
 Route::POST('single/comment' , function (){
+    Alert::alert('Title', 'Message', 'Type');
     return view('singleproduct');
 });
 Route::GET('single/comment' , function (){
@@ -34,11 +35,25 @@ Route::GET('single/comment' , function (){
 });
 Route::post('single/form',[\App\Http\Controllers\user\Comment::class,'create']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::POST('single/s' , function (){
-    $product=Product::query()->find($_POST['product_id']);
-    $product->comments()->create([
+Route::POST('single/question' , function (){
+    $product=Product::query()->find($_POST['id_product']);
+    $product->question()->create([
         'user_id' => auth()->id(),
-        'parent_id' => $_POST['id'],
-        'comment' =>'ddasds',
+        'Question' =>$_POST['question'],
         ]);
+});
+Route::post('single/answer',function (){
+    $product=\App\Models\Question::query()->where('commentable_id',$_POST['product_id'])->where('Question',$_POST['Question'])->get();
+    foreach ($product as $item)
+   $product=Product::query()->find($_POST['product_id']);
+   $product->question()->create([
+      'user_id' => auth()->id(),
+       'parent_id' => $item->id,
+       'answer' => $_POST['answer'],
+   ]);
+
+});
+Route::get('s' , function (){
+    $alert=new alert();
+    $alert->render();
 });

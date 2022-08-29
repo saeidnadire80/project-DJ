@@ -13,7 +13,7 @@ class Product extends Model
         'price',
         'discount_price',
         'image_id',
-        'description_id'
+        'description_id',
     ];
     public function images()
     {
@@ -27,5 +27,9 @@ class Product extends Model
     public function comments()
     {
         return $this->morphMany(comment::class,'commentable');
+    }
+    public function question()
+    {
+        return $this->morphMany(Question::class,'commentable');
     }
 }

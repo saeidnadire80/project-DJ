@@ -1,9 +1,6 @@
 <?php
-
-
-
 ?>
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -115,14 +112,44 @@
     }
 </style>
 <body>
+@foreach(\App\Models\Product::query()->where('id',$_GET['id_product'])->get() as $item)
+<p>{{$item->name_product}}</p>
+@endforeach
 @guest()
 <h2 style="text-align:center">Product Card</h2>
 @endguest
 @auth()
-@include('layouts.comment',['comments' => \App\Models\comment::query()->where('approved',true)->get(),'id_product' => $_GET['id_product']])
+    @foreach(\App\Models\comment::query()->where('approved',true)->where('commentable_id',$_GET['id_product'])->get() as $item)
+        <div class="card">
+            <h1>{{$item->comment}}</h1>
+        </div>
+    @endforeach
+    @foreach(\App\Models\Question::query()->where('approved',true)->where('commentable_id',$_GET['id_product'])->get() as $item)
+        <div class="card">
+            @if($item->Question)
+                <h1>{{$item->Question}}</h1>
+
+            @foreach(\App\Models\Question::query()->where('approved',true)->where('commentable_id',$_GET['id_product'])->where('parent_id',$item->id)->get() as $i)
+                <h4>{{$i->answer}}</h4>
+            @endforeach
+
+            <p>
+            <form action="answer" method="post">
+                @csrf
+                <input type="hidden" name="Question" value="{{$item->Question}}">
+                <input type="hidden" name="product_id" value="{{$_GET['id_product']}}">
+                <input type="hidden" name="id" value="{{$item->id}}">
+                <input type="text" name="answer" id="">
+                <input type="submit" value="پاسخ">
+            </form>
+                @endif
+                @include('sweetalert::alert');
+            </p>
+        </div>
+    @endforeach
 @endauth
 
-
+<p>comment</p>
 <form action="form" method="post">
     @csrf
     <input class="rating rating--nojs" max="5" step="1" name="star" type="range">
@@ -132,6 +159,15 @@
     <input type="text" name="cons" id="">
     <input type="text" name="comment" id="">
     <input type="radio" name="Unknown" value="Unknown">
+    @error('comment')
+    {{$message}}
+    @enderror
+    <input type="submit">
+</form>
+<form action="question" method="post">
+    @csrf
+    <input type="hidden" name="id_product" value="<?= $_GET['id_product']?>">
+    <input type="text" name="question" id="">
     @error('comment')
     {{$message}}
     @enderror

@@ -7,7 +7,6 @@
             @csrf
             <input type="hidden" name="product_id" value="{{$id_product}}">
             <input type="hidden" name="id" value="{{$item->id}}">
-            <input type="submit" value="پاسخ">
 
         </form>
         </p>
