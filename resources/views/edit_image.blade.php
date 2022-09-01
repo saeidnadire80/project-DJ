@@ -21,7 +21,7 @@
         <tbody>
         @foreach($product->images as $image)
             <tr>
-                <td><img src="image/{{$image['image']}}"> {{$image['image']}} </td>
+                <td><img src="/image/{{$image['image']}}" width="70px" height="70px"> {{$image['image']}} </td>
                 <td><a href="{{route('form_edit_image',$image['id'])}}">edit</a></td>
             </tr>
         @endforeach

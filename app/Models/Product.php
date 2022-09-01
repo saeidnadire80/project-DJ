@@ -10,24 +10,27 @@ class Product extends Model
     use HasFactory;
     protected $fillable=[
         'name_product',
+        'category_id',
         'price',
-        'discount_price',
-        'image_id',
-        'description_id'
+        'visit'
     ];
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->morphMany(Image::class,'imageable');
     }
 
+    public function discounts()
+    {
+        return $this->morphMany(Discount::class,'discountable');
+    }
 
-    //
-    //
-    //
-
-
-    public function description()
+    public function descriptions()
     {
         return $this->hasMany(Description::class);
     }
+    public function categories()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

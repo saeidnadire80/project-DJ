@@ -44,7 +44,7 @@
                             <b><p class="card border-4" style="font-size: 20px;">Images</p></b>
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <img src="image/{{$image['image']}}">{{$image['image']}}>
+                                <img src="/image/{{$image['image']}}" width="70px" height="70px">{{$image['image']}}>
                                 <label class="form-label" for="form3Example4">edit Image</label>
                                 <input type="file" name="image" class="form-control bg-success" >
                             </div>

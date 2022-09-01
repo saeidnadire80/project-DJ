@@ -16,11 +16,9 @@ return new class extends Migration
         Schema::create('descriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->string('color')->nullable();
-            $table->string('weight')->nullable();
-            $table->string('plan')->nullable();
-            $table->text('description')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('name_description');
+            $table->string('value_description');
             $table->timestamps();
         });
     }

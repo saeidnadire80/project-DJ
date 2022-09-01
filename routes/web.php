@@ -45,7 +45,22 @@ Route::prefix('admin')->group(function(){
 
 });
 
-
+Route::get('test',function (){
+//    return \App\Models\Category::query()->create([
+//        'name_category'=>'pirhan',
+//        'parent_id'=>6
+//    ]);
+//    return \App\Models\Product::query()->create([
+//        'name_product'=>'labtab',
+//        'category_id'=>3,
+//        'visit'=>0,
+//        'price'=>'10000'
+//
+//    ]);
+//    return \App\Models\Product::find(1)->categories();
+    $categories=\App\Models\Category::query()->where('parent_id',0)->get();
+    return view('cate',['categories'=>$categories]);
+});
 
 
 

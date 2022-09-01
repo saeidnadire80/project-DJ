@@ -9,7 +9,7 @@ class Admin_productController extends Controller
 {
     public function admin_product()
     {
-        $products=Product::all();
+        $products=Product::query()->paginate(15);
         return view('admin_product',['products'=>$products]);
     }
 }
