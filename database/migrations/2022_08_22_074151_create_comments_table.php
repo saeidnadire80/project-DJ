@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('Unknown')->nullable(true);
             $table->text('Score')->default(0);
             $table->boolean('approved')->default(0);
+            $table->boolean('Purchase_status')->default(0);
             $table->timestamps();
         });
 

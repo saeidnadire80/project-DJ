@@ -19,41 +19,40 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-Route::get('admin',function () {
-    return 'hello admin';
-})->middleware('auth.admin');
-Route::get('comment', function (){
-    return view('comment');
-});
-Route::POST('single/comment' , function (){
-    Alert::alert('Title', 'Message', 'Type');
-    return view('singleproduct');
-});
-Route::GET('single/comment' , function (){
-    return view('singleproduct');
-});
-Route::post('single/form',[\App\Http\Controllers\user\Comment::class,'create']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::POST('single/question' , function (){
-    $product=Product::query()->find($_POST['id_product']);
-    $product->question()->create([
-        'user_id' => auth()->id(),
-        'Question' =>$_POST['question'],
-        ]);
-});
-Route::post('single/answer',function (){
-    $product=\App\Models\Question::query()->where('commentable_id',$_POST['product_id'])->where('Question',$_POST['Question'])->get();
-    foreach ($product as $item)
-   $product=Product::query()->find($_POST['product_id']);
-   $product->question()->create([
-      'user_id' => auth()->id(),
-       'parent_id' => $item->id,
-       'answer' => $_POST['answer'],
-   ]);
 
+
+Auth::routes();
+
+
+Route::get('product',[\App\Http\Controllers\user\Comment::class,'index']);
+Route::get('single/product' ,[\App\Http\Controllers\user\Comment::class,'single_product']);
+
+
+
+Route::post('single/comment/form/send',[\App\Http\Controllers\user\Comment::class,'create']);
+Route::get('single/comment/form',[\App\Http\Controllers\user\Comment::class,'form_comment']);
+
+
+Route::post('single/question/form/send' ,[\App\Http\Controllers\user\QuestionController::class,'create']);
+Route::post('single/answer',[\App\Http\Controllers\user\QuestionController::class,'answer_insert']);
+Route::get('single/question/form',[\App\Http\Controllers\user\QuestionController::class,'form_question']);
+
+
+
+Route::prefix('admin')->middleware('auth.admin')->group(function (){
+    Route::get('/',[\App\Http\Controllers\admin\AdminController::class,'index']);
+    Route::get('comment',[\App\Http\Controllers\admin\CommentController::class,'index_comment']);
+    Route::post('update_approved_comment',[\App\Http\Controllers\admin\CommentController::class,'update'])->name('update_approved_comment');
+    Route::post('delete_comment',[\App\Http\Controllers\admin\CommentController::class,'delete'])->name('delete_comment');
+    Route::get('question',[\App\Http\Controllers\admin\QuestionController::class,'index_question']);
+    Route::post('update_approved_question',[\App\Http\Controllers\admin\QuestionController::class,'update'])->name('update_approved_question');
+    Route::post('delete_question',[\App\Http\Controllers\admin\QuestionController::class,'delete'])->name('delete_question');
 });
-Route::get('s' , function (){
-    $alert=new alert();
-    $alert->render();
+
+
+
+Route::prefix('profile')->group(function (){
+    Route::get('/',[\App\Http\Controllers\user\ProfileController::class,'index'])->name('profile');
+    Route::post('get_out/user',[\App\Http\Controllers\user\ProfileController::class,'get_out']);
 });

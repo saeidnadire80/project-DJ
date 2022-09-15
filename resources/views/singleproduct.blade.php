@@ -1,4 +1,7 @@
 <?php
+//$a=$product->comments->where('approved',true);
+//foreach ($a as $item)
+//    dd($item);
 ?>
 <!doctype html>
 <html lang="en">
@@ -112,25 +115,46 @@
     }
 </style>
 <body>
+{{$product}}
+
 @foreach(\App\Models\Product::query()->where('id',$_GET['id_product'])->get() as $item)
 <p>{{$item->name_product}}</p>
 @endforeach
-@guest()
-<h2 style="text-align:center">Product Card</h2>
-@endguest
-@auth()
-    @foreach(\App\Models\comment::query()->where('approved',true)->where('commentable_id',$_GET['id_product'])->get() as $item)
-        <div class="card">
+    {{--Show comments section--}}
+    @foreach($product->comments->where('approved',true) as $item)
+            <div class="card">
+                @if(!$item->Unknown)
+                <h1>{{$item->user->name}}</h1>
+                @else <h1>کاربر دیجی کالا</h1>
+                @endif
             <h1>{{$item->comment}}</h1>
+                    <h1>{{$item->title}}</h1>
+                    @if(!$item->Score == 0)
+                    <h1>{{$item->Score}}</h1>
+                    @endif
+                    @if(!$item->Purchase_status == 0)
+                        <h1>خریدار</h1>
+                    @endif
+                    @if($item->positive_points)
+                        <h1>{{$item->positive_points}}</h1>
+                    @endif
+                    @if($item->cons)
+                        <h1>{{$item->cons}}</h1>
+                    @endif
+            <h1>{{\Morilog\Jalali\Jalalian::forge($item->created_at)->format('%A %d %B %y')}}</h1>
         </div>
     @endforeach
-    @foreach(\App\Models\Question::query()->where('approved',true)->where('commentable_id',$_GET['id_product'])->get() as $item)
+    {{--end Show comments section--}}
+
+    {{--Show question section--}}
+    @foreach($product->question->where('approved',true) as $item)
         <div class="card">
             @if($item->Question)
                 <h1>{{$item->Question}}</h1>
-
-            @foreach(\App\Models\Question::query()->where('approved',true)->where('commentable_id',$_GET['id_product'])->where('parent_id',$item->id)->get() as $i)
+                <h1>{{$item->user->name}}</h1>
+            @foreach($product->question->where('approved',true)->where('parent_id',$item->id) as $i)
                 <h4>{{$i->answer}}</h4>
+                    <h1>{{$i->user->name}}</h1>
             @endforeach
 
             <p>
@@ -147,31 +171,17 @@
             </p>
         </div>
     @endforeach
-@endauth
+    {{--end Show question section--}}
 
-<p>comment</p>
-<form action="form" method="post">
+<form action="comment/form" method="get">
     @csrf
-    <input class="rating rating--nojs" max="5" step="1" name="star" type="range">
-    <input type="hidden" name="id_product" value="<?= $_GET['id_product']?>">
-    <input type="text" name="title" id="title">
-    <input type="text" name="positive_points" id="">
-    <input type="text" name="cons" id="">
-    <input type="text" name="comment" id="">
-    <input type="radio" name="Unknown" value="Unknown">
-    @error('comment')
-    {{$message}}
-    @enderror
-    <input type="submit">
+    <input type="hidden" name="id_product" value="{{$_GET['id_product']}}">
+    <input type="submit" value="comment">
 </form>
-<form action="question" method="post">
+<form action="question/form" method="get">
     @csrf
-    <input type="hidden" name="id_product" value="<?= $_GET['id_product']?>">
-    <input type="text" name="question" id="">
-    @error('comment')
-    {{$message}}
-    @enderror
-    <input type="submit">
+    <input type="hidden" name="id_product" value="{{$_GET['id_product']}}">
+    <input type="submit" value="question">
 </form>
 </div>
 </body>

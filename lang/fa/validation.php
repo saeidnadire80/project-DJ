@@ -170,6 +170,7 @@ return [
         'size'                  => 'اندازه',
         'terms'                 => 'شرایط',
         'province'              => 'استان',
-        'comment'               => 'نظر دهی'
+        'comment'               => 'نظر دهی',
+        'Question'              => 'سوال'
     ],
 ];

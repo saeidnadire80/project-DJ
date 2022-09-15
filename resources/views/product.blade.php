@@ -22,7 +22,7 @@ use App\Models\Product;
         <tr>
             <td><?= $item->price ?></td>
             <td>
-                <form action="single/comment" method="get">
+                <form action="single/product" method="get">
                     @csrf
                     <input type="hidden" name="id_product" value="<?=$item->id?>">
                     <input type="submit" value="send">

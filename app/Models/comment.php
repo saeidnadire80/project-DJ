@@ -15,6 +15,8 @@ class comment extends Model
         'cons',
         'comment',
         'Unknown',
+        'approved',
+        'Score',
         ];
 
     public function Product()
