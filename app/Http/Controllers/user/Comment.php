@@ -6,37 +6,47 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentValidations;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use \App\Models\comment as comments;
 
 
 class Comment extends Controller
 {
-    public function index()
+    public function index(Product $product)
     {
-        return view('product');
+        return view('product',compact('product'));
     }
-    public function create(CommentValidations $request )
+    public function create(Request $request )
     {
+        $request->validate([
+            'comment' => 'required||min:3||max:255'
+        ]);
+            $product = Product::query()->find($request->id_product);
+            $product->comments()->create([
+                'user_id' => auth()->id(),
+                'title' => $request->title,
+                'positive_points' => $request->positive_points,
+                'cons' => $request->cons,
+                'comment' => $request->comment,
+                'Unknown' => $request->Unknown,
 
-                $product = Product::query()->find($request->id_product);
-                $product->comments()->create([
-                    'user_id' => auth()->id(),
-                    'title' => $request->title,
-                    'positive_points' => $request->positive_points,
-                    'cons' => $request->cons,
-                    'comment' => $request->comment,
-                    'Unknown' => $request->Unknown,
-                    'Score' => $request->star,
-
-                ]);
-                return back();
+            ]);
+            return back();
     }
 
-    public function single_product(Request $request)
+    public function single_product(Product $product)
     {
-        $product=Product::find($request->id_product);
-        return view('singleproduct',compact('product'));
+        return view('single_product',compact('product'));
     }
+
+    public function comment(Product $product)
+    {
+        return view('user.comment',compact('product'));
+    }
+
+//    public function single_product(Request $request)
+//    {
+//        $product=Product::find($request->id_product);
+//        return view('single_product',compact('product'));
+//    }
 
     public function form_comment()
     {

@@ -171,6 +171,7 @@ return [
         'terms'                 => 'شرایط',
         'province'              => 'استان',
         'comment'               => 'نظر دهی',
-        'Question'              => 'سوال'
+        'Question'              => 'سوال',
+        'answer'                =>'جواب'
     ],
 ];

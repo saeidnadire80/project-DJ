@@ -129,12 +129,12 @@
                   <div class="collapse" id="articlesSubmenu2">
                       <ul class="nav px-3">
                           <li class="nav-item">
-                              <a href="{{ url('admin/comment') }}" class="nav-link my-1 w-100"
+                              <a href="{{ route('admin.comment') }}" class="nav-link my-1 w-100"
                               >نظر ها</a
                               >
                           </li>
                           <li class="nav-item">
-                              <a href="{{url('admin/question')}}" class="nav-link my-1 w-100">سوال ها</a>
+                              <a href="{{route('admin.question')}}" class="nav-link my-1 w-100">سوال ها</a>
                           </li>
                       </ul>
                   </div>

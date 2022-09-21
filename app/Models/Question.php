@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','parent_id','Question','answer','approved'];
+    protected $fillable=['user_id','parent_id','Question','answer','approved', 'commentable_id', 'commentable_type'];
     public function Product()
     {
         return $this->belongsTo(Product::class);

@@ -1,6 +1,3 @@
-<?php
-use App\Models\Product;
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,26 +8,8 @@ use App\Models\Product;
     <title>Document</title>
 </head>
 <body>
-
-    <table>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Points</th>
-        </tr>
-        @foreach(Product::all() as $item)
-        <tr>
-            <td><?= $item->price ?></td>
-            <td>
-                <form action="single/product" method="get">
-                    @csrf
-                    <input type="hidden" name="id_product" value="<?=$item->id?>">
-                    <input type="submit" value="send">
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </table>
-
+@foreach($product->all() as $item)
+    <a href="{{route('single.product',[$item->id])}}">{{$item->id}}</a>
+@endforeach
 </body>
 </html>

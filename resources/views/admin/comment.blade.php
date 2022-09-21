@@ -53,14 +53,16 @@
             <td>{{$item->Unknown}}</td>
             <td>{{$item->Score}}</td>
             <td>@if($item->approved == 0)
-                    <form action="{{route('update_approved_comment')}}" method="post">
+                    <form action="{{route('update.approved.comment')}}" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$item->id}}">
                         <input type="submit" value="تایید">
-                    </form>@else {{$item->approved}}  @endif</td>
+                    </form>
+        @else {{$item->approved}}
+                    @endif</td>
             <td>
                 <div class="btn-group">
-                    <form action="{{route('delete_comment')}}" method="post">
+                    <form action="{{route('delete.comment')}}" method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{$item->id}}">
                     <button type="submit" class="btn btn-sm btn-danger">حذف</button>

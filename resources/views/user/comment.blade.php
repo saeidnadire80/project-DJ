@@ -8,20 +8,32 @@
     <title>Document</title>
 </head>
 <body>
-<p>comment</p>
-<form action="form/send" method="POST">
-    @csrf
-    <input class="rating rating--nojs" max="5" step="1" name="star" type="range">
-    <input type="hidden" name="id_product" value="{{$id_product}}">
-    <input type="text" name="title" id="title">
-    <input type="text" name="positive_points" id="">
-    <input type="text" name="cons" id="">
-    <input type="text" name="comment" id="">
-    <input type="radio" name="Unknown" value="Unknown">
-    @error('comment')
-    {{$message}}
-    @enderror
-    <input type="submit">
-</form>
+<div id="comment" class="modal">
+
+    <form class="modal-content animate" action="" method="post">
+        @csrf
+        <label for="comment"><b>comment</b></label>
+        <input type="text" placeholder="Enter answer" name="answer">
+        <input type="hidden" name="id_product" value="{{$product->id}}">
+        <input type="text" name="title" id="title">
+        <input type="text" name="positive_points" id="">
+        <input type="text" name="cons" id="">
+        <input type="text" name="comment" id="" value="{{old('comment','comment')}}">
+        <input type="radio" name="Unknown" value="Unknown">
+        <button type="submit">send</button>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </form>
+
+
+
+</div>
 </body>
 </html>

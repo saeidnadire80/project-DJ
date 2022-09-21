@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\CommentController;
+use App\Http\Controllers\admin\QuestionController as AdminQuestionController;
+use App\Http\Controllers\user\Comment;
+use App\Http\Controllers\user\ProfileController;
+use App\Http\Controllers\user\QuestionController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\CommentValidations;
@@ -24,35 +30,34 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+Route::get('product',[Comment::class,'index']);
+Route::get('product/{product}',[Comment::class,'single_product'])->name('single.product');
 
-Route::get('product',[\App\Http\Controllers\user\Comment::class,'index']);
-Route::get('single/product' ,[\App\Http\Controllers\user\Comment::class,'single_product']);
+Route::get('comment/{product}',[Comment::class,'comment'])->name('comment');
+Route::post('comment/{product}',[Comment::class,'create']);
 
+Route::get('question/{product}',[QuestionController::class,'index'])->name('question');
+Route::post('question/{product}' ,[QuestionController::class,'create']);
 
-
-Route::post('single/comment/form/send',[\App\Http\Controllers\user\Comment::class,'create']);
-Route::get('single/comment/form',[\App\Http\Controllers\user\Comment::class,'form_comment']);
-
-
-Route::post('single/question/form/send' ,[\App\Http\Controllers\user\QuestionController::class,'create']);
-Route::post('single/answer',[\App\Http\Controllers\user\QuestionController::class,'answer_insert']);
-Route::get('single/question/form',[\App\Http\Controllers\user\QuestionController::class,'form_question']);
-
+Route::get('/question/{product}/answer/{question}', [QuestionController::class, 'answer'])->name('question.answer');
+Route::post('/question/{product}/answer/{question}',[QuestionController::class,'answer_question']);
 
 
 Route::prefix('admin')->middleware('auth.admin')->group(function (){
-    Route::get('/',[\App\Http\Controllers\admin\AdminController::class,'index']);
-    Route::get('comment',[\App\Http\Controllers\admin\CommentController::class,'index_comment']);
-    Route::post('update_approved_comment',[\App\Http\Controllers\admin\CommentController::class,'update'])->name('update_approved_comment');
-    Route::post('delete_comment',[\App\Http\Controllers\admin\CommentController::class,'delete'])->name('delete_comment');
-    Route::get('question',[\App\Http\Controllers\admin\QuestionController::class,'index_question']);
-    Route::post('update_approved_question',[\App\Http\Controllers\admin\QuestionController::class,'update'])->name('update_approved_question');
-    Route::post('delete_question',[\App\Http\Controllers\admin\QuestionController::class,'delete'])->name('delete_question');
+    Route::get('/',[AdminController::class,'index']);
+    Route::get('comment',[AdminController::class,'comment'])->name('admin.comment');
+    Route::post('update_approved_comment',[AdminController::class,'update_approved_comment'])->name('update.approved.comment');
+    Route::post('delete_comment',[AdminController::class,'delete_comment'])->name('delete.comment');
+    Route::get('question',[AdminController::class,'question'])->name('admin.question');
+    Route::post('update_approved_question',[AdminController::class,'update_approved_question'])->name('update.approved.question');
+    Route::post('delete_question',[AdminController::class,'delete_question'])->name('delete.question');
 });
 
 
 
 Route::prefix('profile')->group(function (){
-    Route::get('/',[\App\Http\Controllers\user\ProfileController::class,'index'])->name('profile');
-    Route::post('get_out/user',[\App\Http\Controllers\user\ProfileController::class,'get_out']);
+    Route::get('/',[ProfileController::class,'index'])->name('profile');
+    Route::post('get_out/user',[ProfileController::class,'get_out']);
 });
+
+

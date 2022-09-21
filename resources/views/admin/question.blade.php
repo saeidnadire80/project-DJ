@@ -48,14 +48,14 @@
                 <td>{{$item->Question}}</td>
                 <td>{{$item->answer}}</td>
                 <td>@if($item->approved == 0)
-                        <form action="{{route('update_approved_question')}}" method="post">
+                        <form action="{{route('update.approved.question')}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{$item->id}}">
                             <input type="submit" value="تایید">
                         </form>@else {{$item->approved}}  @endif</td>
                 <td>
                     <div class="btn-group">
-                        <form action="{{route('delete_question')}}" method="post">
+                        <form action="{{route('delete.question')}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{$item->id}}">
                             <button type="submit" class="btn btn-sm btn-danger">حذف</button>

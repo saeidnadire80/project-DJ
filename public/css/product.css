@@ -1,0 +1,222 @@
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family:iran-yekan;
+
+}
+@font-face {
+    font-family: 'iran-yekan';
+
+     src: url(./font/BYekan+\Bold.ttf);
+    src: url(./font/BYekan+.ttf);
+
+    font-family: salamat;
+    src: url(./font/Salamat.ttf);
+}
+a{
+text-decoration: none;
+}
+.header{
+    font-family: iran-yekan;
+}
+.img-logo{
+    max-width:85px;
+    max-height: 45px;
+
+}
+.btn-login{
+    border: 1px solid black;
+}
+#search-form{
+    font-family:iran-yekan;
+    background-color: #f1f0f1;
+    direction:rtl;
+    background-image: url(./img/search-outline.svg);
+    background-repeat: no-repeat;
+    background-position: 97%;
+    padding-right: 2px;
+    background-size: 33px
+}
+.login-btn{
+    border: 1px solid #c4c7ce;
+}
+.icon-shop{
+border-right: 2px solid #c4c7ce;
+}
+.text-nav{
+    color:#a1a3a8;
+}
+.navbar{
+    direction: ltr;
+}
+.navbar a{
+    font-size: 1rem;
+}
+.cont-fix{
+    position: sticky;
+    background-color: white;
+    z-index: 999;
+    top: 0px;
+}
+.p4-pruduct-select{
+    background-color: #f7f7f7;
+    border: 1px solid rgb(173, 169, 169);
+   }
+  .bascketbtn{
+    width: 90%;
+  }
+  .product.pag{
+    font-family:'Courier New', Courier, monospace;
+  }
+  .img-product-pad{
+    padding: 58px 0;
+  }
+ body a{
+    text-decoration: none;
+ }
+ .span1{
+    font-family: salamat;
+   }
+.badge-danger{
+    background-color: rgb(220,53,69) !important;
+    height: fit-content;
+   }
+   .Specifications-c6{
+      line-height: 55px;
+   }
+   .rat:hover{
+    color: red;
+
+   }
+   .bade-sucsessg{
+    background-color: green !important;
+   }
+   .posi{
+
+
+   }
+
+   /*  .basket-pos-sticky{
+    position:sticky;
+    top: 0;
+    z-index: 990;
+   } */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}
