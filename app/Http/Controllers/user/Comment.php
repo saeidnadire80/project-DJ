@@ -28,6 +28,7 @@ class Comment extends Controller
                 'cons' => $request->cons,
                 'comment' => $request->comment,
                 'Unknown' => $request->Unknown,
+                'Score' =>$request->Score
 
             ]);
             return back();
@@ -40,14 +41,10 @@ class Comment extends Controller
 
     public function comment(Product $product)
     {
+
         return view('user.comment',compact('product'));
     }
 
-//    public function single_product(Request $request)
-//    {
-//        $product=Product::find($request->id_product);
-//        return view('single_product',compact('product'));
-//    }
 
     public function form_comment()
     {

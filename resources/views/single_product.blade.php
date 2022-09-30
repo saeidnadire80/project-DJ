@@ -1,11 +1,4 @@
 <?php
-//if ($product->comments->where('approved',true)->isnotEmpty()){
-//    echo 1;
-//    exit();
-//}else{
-//    echo 0;
-//    exit();
-//}
 $i=$product->comments->where('approved',true);
 $sum=$i->sum('Score');
 $avre=$i->avg('Score');
@@ -624,7 +617,7 @@ $avr=round($avre);
                           دیجی‌کلاب
                           پس از تایید نظر، با مراجعه به صفحه‌ی ماموریت‌های کلابی
                           امتیاز خود را دریافت کنید.</p>
-                      <div class="comm ">
+                      <div class="comm pt-10 d-flex">
                           <p class="text-dark">شما هم می‌توانید در مورد این کالا نظر دهید.
                           </p>
                           <p class="text-dark">
@@ -707,6 +700,14 @@ $avr=round($avre);
                       @auth()
                           <a class="btn btn-outline-danger w-75 my-2" href="{{route('comment',[$product->id])}}">ثبت دیدگاه</a>
                       @endauth
+
+
+
+
+
+
+
+
                     <p class="text-muted"><i
                         class="fa-light fa-circle-info pt-3 ps-2 "></i>۵ امتیاز
                       دیجی‌کلاب
@@ -836,6 +837,7 @@ $avr=round($avre);
                         @endif
 
                       @endforeach
+
                   </div>
                 </div>
               </div>
@@ -849,7 +851,7 @@ $avr=round($avre);
                       <div class="col-10">
                           <form action="{{route('question',[$product->id])}}" method="post">
                               @csrf
-                              <textarea name="question" id="" style="width:96% ;"></textarea>
+                              <textarea name="question" id="" style="width:96% ;" required></textarea>
                               <div class="d-flex justify-content-between">
                                   <p class="text-lead">ثبت پاسخ به معنی موافقت با<a href="#"
                                                                                     class="text-info">قوانین انتشار دیجی‌کالا</a> است.</p>
@@ -897,9 +899,18 @@ $avr=round($avre);
                      @foreach($product->question->where('approved',true) as $item)
                   <div>
                       @if($item->Question)
-                    <div class="d-flex flex-row border-bottom py-4">
+                    <div class="d-flex flex-row  py-4">
                       <i class="fa-light fa-square-question ms-3 text-info fw-bolder"></i>
-                      <p class="h4  ">{{$item->Question}}</p>
+                      <p class="h4">{{$item->Question}}</p>
+                        <div class="d-flex ">
+                            @guest()
+                                <a class="text-decoration-none text-info fw-bold h5 py-3"  onclick="answer()">ثبت پاسخ</a>
+                            @endguest
+                            @auth()
+                                <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$item->id])}}">ثبت پاسخ</a>
+                            @endauth
+
+                        </div>
                     </div>
                           @foreach($product->question->where('approved',true)->where('parent_id',$item->id) as $i)
                               @if(!empty($i->parent_id))
@@ -907,24 +918,18 @@ $avr=round($avre);
                                       <p class="text-muted ms-4">پاسخ</p>
                                       <p class="text-muted ">{{$i->answer}}</p>
                                   </div>
+                                  <div class="d-flex">
+                                  <p class="text-muted ps-5">آیا این پاسخ مفید بود؟</p>
+
+                                  <a href="#" class="text-muted"><i class="fa-light
+                          fa-thumbs-up px-2"></i></a>
+                                  <p><span class="span1 px-1">4</span></p>
+                                  <a href="#" class="text-muted"> <i class="fa-light
+                          fa-thumbs-down px-2"></i></a>
+                                  <p><span class="span1 px-1">0</span></p>
+                                  </div>
                                   <div class="d-flex justify-content-between">
                                       <p class="text-muted">{{$i->user->name}}</p>
-                                      <div class="d-flex ">
-                                          @guest()
-                                              <a class="text-decoration-none text-info fw-bold h5 py-3"  onclick="answer()">ثبت پاسخ</a>
-                                          @endguest
-                                          @auth()
-                                              <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$i->id])}}">ثبت پاسخ</a>
-                                          @endauth
-                                          <p class="text-muted ps-5">آیا این پرسش مفید بود؟</p>
-
-                                          <a href="#" class="text-muted"><i class="fa-light
-                          fa-thumbs-up px-2"></i></a>
-                                          <p><span class="span1 px-1">4</span></p>
-                                          <a href="#" class="text-muted"> <i class="fa-light
-                          fa-thumbs-down px-2"></i></a>
-                                          <p><span class="span1 px-1">0</span></p>
-                                      </div>
                                   </div>
                               @else
                                   <div class="d-flex py-3">
@@ -938,7 +943,7 @@ $avr=round($avre);
                                               <a class="text-decoration-none text-info fw-bold h5 py-3"  onclick="answer()">ثبت پاسخ</a>
                                           @endguest
                                           @auth()
-                                              <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$i->id])}}">ثبت پاسخ</a>
+                                              <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$item->id])}}">ثبت پاسخ</a>
                                           @endauth
                                           <p class="text-muted ps-5">آیا این پرسش مفید بود؟</p>
 
@@ -977,7 +982,8 @@ $avr=round($avre);
           <script src="https://kit.fontawesome.com/aaa6b9c8c0.js"
             crossorigin="anonymous"></script>
           <script src="/scriptproduct.js"></script>
-      <script>
+                            <script src="js/comment.js"></script>
+                            <script>
           // Get the modal
           var comment_form = document.getElementById('comment');
 

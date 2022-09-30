@@ -45,11 +45,6 @@
                 class="form-label text-center">امتیاز دهید!: <span>عالی</span></label></div>
         <input name="Score" type="range" class="form-range" min="1" max="5"
             step="1" id="customRange1">
-            <option value="0"></option>
-            <option value="10"></option>
-            <option value="20"></option>
-            <option value="30"></option>
-            <option value="40"></option>
 
         <p class="h4 me-5">دیدگاه خود را شرح دهید</p>
         <p class="pt-5 h5 me-5">عنوان نظر</p>
@@ -121,7 +116,35 @@
 
 <div class="col-6 d-flex align-content-center text-center justify-content-center py-3"><p>ثبت دیدگاه به معنی موافقت با <a href="#">قوانین انتشار دیجی‌کالا</a> است.</p></div>
 </div>
-   </div>
+{{--   </div>--}}
+{{--        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>--}}
+{{--        <div id="id01" class="modal">--}}
+
+{{--            <form class="modal-content animate" action="/action_page.php" method="post">--}}
+{{--                <div class="imgcontainer">--}}
+{{--                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>--}}
+{{--                    <img src="img_avatar2.png" alt="Avatar" class="avatar">--}}
+{{--                </div>--}}
+
+{{--                <div class="container">--}}
+{{--                    <label for="uname"><b>Username</b></label>--}}
+{{--                    <input type="text" placeholder="Enter Username" name="uname" required>--}}
+
+{{--                    <label for="psw"><b>Password</b></label>--}}
+{{--                    <input type="password" placeholder="Enter Password" name="psw" required id="psw">--}}
+
+{{--                    <button type="submit">Login</button>--}}
+{{--                    <label>--}}
+{{--                        <input type="checkbox" checked="checked" name="remember"> Remember me--}}
+{{--                    </label>--}}
+{{--                </div>--}}
+
+{{--                <div class="container" style="background-color:#f1f1f1">--}}
+{{--                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>--}}
+{{--                    <span class="psw">Forgot <a href="#">password?</a></span>--}}
+{{--                </div>--}}
+{{--            </form>--}}
+{{--        </div>--}}
 
     </body>
 </html>
