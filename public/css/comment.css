@@ -1,0 +1,22 @@
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family: iran-yekan ;
+}
+@font-face {
+    font-family: 'iran-yekan'; 
+     src: url(./font/BYekan+.ttf); 
+    src: url(./font/BYekan+\ Bold.ttf);
+
+    
+    font-family: salamat;
+    src: url(./font/Salamat.ttf);
+}
+.titl-comment{
+    border: 1px solid #cbc9c9;
+}
+.discription p{
+ line-height: 35px;
+}

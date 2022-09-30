@@ -1,15 +1,10 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\CommentController;
-use App\Http\Controllers\admin\QuestionController as AdminQuestionController;
 use App\Http\Controllers\user\Comment;
 use App\Http\Controllers\user\ProfileController;
 use App\Http\Controllers\user\QuestionController;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
-use App\Http\Requests\CommentValidations;
-Use Illuminate\Console\View\Components\Alert;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

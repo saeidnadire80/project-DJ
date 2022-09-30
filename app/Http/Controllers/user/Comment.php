@@ -16,6 +16,7 @@ class Comment extends Controller
     }
     public function create(Request $request )
     {
+
         $request->validate([
             'comment' => 'required||min:3||max:255'
         ]);

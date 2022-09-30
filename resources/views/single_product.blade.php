@@ -1,37 +1,44 @@
 <?php
+//if ($product->comments->where('approved',true)->isnotEmpty()){
+//    echo 1;
+//    exit();
+//}else{
+//    echo 0;
+//    exit();
+//}
 $i=$product->comments->where('approved',true);
-    $avr=$i->avg('Score');
-    $sum=$i->sum('Score');
+$sum=$i->sum('Score');
+$avre=$i->avg('Score');
+$avr=round($avre);
 
-
-    ?>
+?>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/product.css">
-      <!-- Latest compiled and minified CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      <!-- Latest compiled JavaScript -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/fonts/fontawesome/css/all.css">
     <link rel="icon" type="image/x-icon"
-      href="https://www.digikala.com/logo192.png">
+          href="https://www.digikala.com/logo192.png">
     <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+          integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
-      integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+          integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>product introduction</title>
-  </head>
+</head>
   <body>
     <body class="">
       <!--=========================================== navbar ============================================-->
@@ -584,9 +591,52 @@ $i=$product->comments->where('approved',true);
             </section>
 
             <!--====================================== دیدگاهها =================================-->
+              @if($product->comments->where('approved',true)->isEmpty())
+                  <section id="View">
+                      <div class="views">
+                          <div class="row d-flex">
+                              <div class="col-12 col-lg-3 sticky posi border-bottom">
+                                  <p class="fw-bolder pe-3 pt-4">دیدگاه ها</p>
+                                  <div style="height:4px; width:80px; background-color: red;"></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div>
+                          <i>هنوز امتیازی ثبت نشده است</i>
+                          <br>
+                          <i class="fa fa-star rating-color rat"></i>
+                          <i class="fa fa-star rating-color rat"></i>
+                          <i class="fa fa-star rating-color rat"></i>
+                          <i class="fa fa-star rating-color rat"></i>
+                          <i class="fa fa-star rating-color rat"></i>
+
+                      </div>
+                      <p class="text-muted pt-5">شما هم درباره ی این کالا دیدگاه
+                          ثبت کنید</p>
+                      @guest()
+                          <input class="btn btn-outline-danger w-25" type="button" value="ثبت دیدگاه" onclick="comment()" value="ثبت دیدگاه">
+                      @endguest
+                      @auth()
+                          <a class="btn btn-outline-danger w-25 " href="{{route('comment',[$product->id])}}">ثبت دیدگاه</a>
+                      @endauth
+                      <p class="text-muted"><i
+                              class="fa-light fa-circle-info pt-3 ps-2 "></i>۵ امتیاز
+                          دیجی‌کلاب
+                          پس از تایید نظر، با مراجعه به صفحه‌ی ماموریت‌های کلابی
+                          امتیاز خود را دریافت کنید.</p>
+                      <div class="comm ">
+                          <p class="text-dark">شما هم می‌توانید در مورد این کالا نظر دهید.
+                          </p>
+                          <p class="text-dark">
+
+                              اگر این محصول را قبلا از دیجیکالا خریده باشید، دیدگاه شما به عنوان خریدار ثبت خواهد شد. همچنین در صورت تمایل می‌توانید به صورت ناشناس نیز دیدگاه خود را ثبت کنید</p>
+                      </div>
+                  </section>
+                  <hr>
+              @else
             <section id="View">
               <div class="views">
-<div class="row d-flex">
+                  <div class="row d-flex">
                   <div class="col-12 col-lg-3 sticky posi border-bottom">
                   <p class="fw-bolder pe-3 pt-4">دیدگاه ها</p>
                   <div style="height:4px; width:80px; background-color: red;"></div>
@@ -620,7 +670,6 @@ $i=$product->comments->where('approved',true);
                             <i>&#11088;&#11088;&#11088;&#11088;&#11088;</i>
                         @endif
                         <i> از مجموع {{$sum}}امتیاز </i>
-
                       <p class="pt-5">ایمنی</p>
                       <div class="progress px-2 mx-2" style="height: 15px;">
                         <div class="progress-bar rounded text-bg-info"
@@ -653,10 +702,10 @@ $i=$product->comments->where('approved',true);
                     <p class="text-muted pt-5">شما هم درباره ی این کالا دیدگاه
                       ثبت کنید</p>
                       @guest()
-                          <input style="width:auto;" type="button" value="ثبت دیدگاه" onclick="comment()">
+                          <input class="btn btn-outline-danger w-75 my-2" type="button" value="ثبت دیدگاه" onclick="comment()" value="ثبت دیدگاه">
                       @endguest
                       @auth()
-                      <a onclick="document.getElementById('comment').style.display='block'" style="width:auto;" href="{{route('comment',[$product->id])}}">ثبت دیدگاه</a>
+                          <a class="btn btn-outline-danger w-75 my-2" href="{{route('comment',[$product->id])}}">ثبت دیدگاه</a>
                       @endauth
                     <p class="text-muted"><i
                         class="fa-light fa-circle-info pt-3 ps-2 "></i>۵ امتیاز
@@ -697,16 +746,18 @@ $i=$product->comments->where('approved',true);
                       <a href="#" class="text-muted">دیدگاه خریداران</a>
                     </div>
                       @foreach($product->comments->where('approved',true) as $item)
+                          @if(!empty($item->title))
                     <div class="pt-3 d-flex">
                       <p class="badge bade-sucsessg">@if(!$item->Score == 0)<span class=" span1
                           text-white p-2 fw-bolder">{{$item->Score}}</span>@endif</p>
-                      <p class="text-muted span1 px-3">{{\Morilog\Jalali\Jalalian::forge($item->created_at)->format('%A %d %B %y')}}
-
+                        <p>{{$item->title}}</p>
+                      <p class="text-muted span1 px-3">
+                          {{\Morilog\Jalali\Jalalian::forge($item->created_at)->format('%A %d %B %y')}}
                       </p>
                         @if(!$item->Unknown)
-                      <p class="text-muted ">{{$item->user->name}}
+                            <p class="text-muted ">{{$item->user->name}}
 
-                      </p>
+                            </p>
                         @else<p class="text-muted ">کاربر دیجی کالا
 
                         </p>
@@ -717,101 +768,201 @@ $i=$product->comments->where('approved',true);
                             </p>
                         @endif
                     </div>
+                              <hr>
+                              <div class="comm ">
+                                  <p class="text-dark">{{$item->comment}}</p>
+                              </div>
+                              <div class="comm ">
+                                  <p class="text-dark">@if($item->positive_points)<span style="color: green;font-size: 10px">&#9547;</span> {{$item->positive_points}}@endif</p>
+                              </div>
+                              <div class="comm ">
+                                  <p class="text-dark">@if($item->cons)<span style="color: red;font-size: 20px">&#9588;</span> {{$item->cons}}@endif</p>
+                              </div>
+                              <hr>
+                              <div class="d-flex justify-content-end">
+                                  <p class="text-muted ps-5">آیا این دیدگاه مفید بود؟</p>
 
-                    <hr>
-                    <div class="comm ">
-                      <p class="text-dark">{{$item->comment}}</p>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-end">
-                      <p class="text-muted ps-5">آیا این دیدگاه مفید بود؟</p>
-
-                      <a href="#" class="text-muted"><i class="fa-light
+                                  <a href="#" class="text-muted"><i class="fa-light
                           fa-thumbs-up px-2"></i></a>
-                      <p><span class="span1 px-1">4</span></p>
-                      <a href="#" class="text-muted"> <i class="fa-light
+                                  <p><span class="span1 px-1">4</span></p>
+                                  <a href="#" class="text-muted"> <i class="fa-light
                           fa-thumbs-down px-2"></i></a>
-                      <p><span class="span1 px-1">0</span></p>
-                    </div>
+                                  <p><span class="span1 px-1">0</span></p>
+                              </div>
+                              <hr>
+                        @else
+                            <div class="pt-3 d-flex">
+                                <p class="badge bade-sucsessg">@if(!$item->Score == 0)<span class=" span1
+                          text-white p-2 fw-bolder">{{$item->Score}}</span>@endif</p>
+                                <p class="text-muted span1 px-3">{{\Morilog\Jalali\Jalalian::forge($item->created_at)->format('%A %d %B %y')}}
+
+                                </p>
+                                @if(!$item->Unknown)
+                                    <p class="text-muted ">{{$item->user->name}}
+
+                                    </p>
+                                @else<p class="text-muted ">کاربر دیجی کالا
+
+                                </p>
+                                @endif
+                                @if(!$item->Purchase_status == 0)
+                                    <p class="text-muted ">خریدار
+
+                                    </p>
+                                @endif
+                            </div>
+                              <hr>
+                              <div class="comm ">
+                                  <p class="text-dark">{{$item->comment}}</p>
+                              </div>
+                              <div class="comm ">
+                                  <p class="text-dark">{{$item->positive_points}}</p>
+                              </div>
+                              <div class="comm ">
+                                  <p class="text-dark">{{$item->cons}}</p>
+                              </div>
+                              <hr>
+                              <div class="d-flex justify-content-end">
+                                  <p class="text-muted ps-5">آیا این دیدگاه مفید بود؟</p>
+
+                                  <a href="#" class="text-muted"><i class="fa-light
+                          fa-thumbs-up px-2"></i></a>
+                                  <p><span class="span1 px-1">4</span></p>
+                                  <a href="#" class="text-muted"> <i class="fa-light
+                          fa-thumbs-down px-2"></i></a>
+                                  <p><span class="span1 px-1">0</span></p>
+                              </div>
+                              <hr>
+                        @endif
+
                       @endforeach
-                    <hr>
-                    <hr>
                   </div>
                 </div>
-                </div>
-            </section>
-            <!--====================== پرسشها =======================-->
-            <section id="Questions">
-                @guest()
-                    <input style="width:auto;" type="button" value="ثبت سوال" onclick="question()">
-                @endguest
-                @auth()
-                    <a onclick="document.getElementById('question').style.display='block'" style="width:auto;" href="{{route('question',[$product->id])}}">ثبت سوال</a>
-                @endauth
-              <p class="px-2">پرسشها</p>
-              <div style="height:4px; width:80px; background-color: red;"></div>
-              <div class="p-5 ">
-                <p>درباره این کالا چه پرسشی دارید؟</p>
-                <div class="col-10">
-                  <form action="#">
-                    <textarea name="massage" id="" style="width:96% ;"></textarea>
-                    <div class="d-flex justify-content-between">
-                      <p class="text-lead">ثبت پاسخ به معنی موافقت با<a href="#"
-                          class="text-info">قوانین انتشار دیجی‌کالا</a> است.</p>
-                      <input type="button" class="
-                        text-white mt-2 ms-5" value="ثبت پرسش">
-                    </div>
-
-                  </form>
-                </div>
               </div>
-                <div class="d-none d-md-flex"><i class="fa-light fa-list-ul"></i>
+            </section>
+              <hr>
+              @endif
+            <!--====================== پرسشها =======================-->
+              @if($product->question->where('approved',true)->isEmpty() == true)
+                  <div class="p-5 ">
+                      <p>درباره این کالا چه پرسشی دارید؟</p>
+                      <div class="col-10">
+                          <form action="{{route('question',[$product->id])}}" method="post">
+                              @csrf
+                              <textarea name="question" id="" style="width:96% ;"></textarea>
+                              <div class="d-flex justify-content-between">
+                                  <p class="text-lead">ثبت پاسخ به معنی موافقت با<a href="#"
+                                                                                    class="text-info">قوانین انتشار دیجی‌کالا</a> است.</p>
+                                  <input type="submit" class="
+                        text-white mt-2 ms-5" value="ثبت پرسش">
+                              </div>
+                              @error('question')
+                              <p>{{$message}}</p>
+                              @enderror
+
+                          </form>
+                      </div>
+                  </div>
+            <section id="Questions">
+              <div class="d-flex ">
+                <div class="col-3 pe-3 ques">
+
+              <p class="pe-2">پرسشها</p>
+              <div style="height:4px; width:80px; background-color: red;"></div>
+                    @else
+                        <section id="Questions">
+                            <div class="d-flex ">
+                                <div class="col-3 pe-3 mt-4 ques">
+
+                                    <p class="pe-2">پرسشها</p>
+                                    <div style="height:4px; width:80px; background-color: red;"></div>
+                <p class="pt-5 text-muted">شما هم درباره ی این کالا پرسش ثبت کنید</p>
+                    @guest()
+                        <input class="btn btn-outline-danger w-75 p-1 mb-4" type="button" value="ثبت پرسش" onclick="question()">
+                    @endguest
+
+                    @auth()
+                        <a class="btn btn-outline-danger w-75 p-1 mb-4" href="{{route('question',[$product->id])}}">ثبت پرسش</a>
+                    @endauth
+                </div>
+                <!-- ==============================نمایش پاسخها ===========================-->
+                <div class="col-6 sub-quest">
+                 <div class="d-flex flex-column">
+                  <div class="d-none d-md-flex"><i class="fa-light fa-list-ul"></i>
                     <p class="fw-bold px-3">مرتب سازی بر اساس </p>
                     <a href="#" class="text-danger">جدیدترین</a>
                     <a href="#" class="text-muted px-3">مفیدترین</a>
-                    <a href="#" class="text-muted">دیدگاه خریداران</a>
-                </div>
-                @foreach($product->question->where('approved',true) as $item)
-                    <hr>
-                    @if($item->Question)
-                    <div class="comm ">
-                        <p class="text-dark">{{$item->Question}}</p>
+                  </div>
+                  <!-- ===========پرسشی که پاسخ نذارد================ -->
+                     @foreach($product->question->where('approved',true) as $item)
+                  <div>
+                      @if($item->Question)
+                    <div class="d-flex flex-row border-bottom py-4">
+                      <i class="fa-light fa-square-question ms-3 text-info fw-bolder"></i>
+                      <p class="h4  ">{{$item->Question}}</p>
                     </div>
-                    @foreach($product->question->where('approved',true)->where('parent_id',$item->id) as $i)
-                        <div class="comm ">
-                            <p class="text-dark">پاسخ:{{$i->answer}}</p>
+                          @foreach($product->question->where('approved',true)->where('parent_id',$item->id) as $i)
+                              @if(!empty($i->parent_id))
+                                  <div class="d-flex py-3">
+                                      <p class="text-muted ms-4">پاسخ</p>
+                                      <p class="text-muted ">{{$i->answer}}</p>
+                                  </div>
+                                  <div class="d-flex justify-content-between">
+                                      <p class="text-muted">{{$i->user->name}}</p>
+                                      <div class="d-flex ">
+                                          @guest()
+                                              <a class="text-decoration-none text-info fw-bold h5 py-3"  onclick="answer()">ثبت پاسخ</a>
+                                          @endguest
+                                          @auth()
+                                              <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$i->id])}}">ثبت پاسخ</a>
+                                          @endauth
+                                          <p class="text-muted ps-5">آیا این پرسش مفید بود؟</p>
 
-                        </div>
-                        <div class="pt-3 d-flex">
-                            <p class="text-muted ">{{$i->user->name}}
-                            </p>
-                        </div>
-                            <div class="d-flex justify-content-end">
-                                <p class="text-muted ps-5">آیا این دیدگاه مفید بود؟</p>
-
-
-                                <a href="#" class="text-muted"><i class="fa-light
+                                          <a href="#" class="text-muted"><i class="fa-light
                           fa-thumbs-up px-2"></i></a>
-                                <p><span class="span1 px-1">4</span></p>
-                                <a href="#" class="text-muted"> <i class="fa-light
+                                          <p><span class="span1 px-1">4</span></p>
+                                          <a href="#" class="text-muted"> <i class="fa-light
                           fa-thumbs-down px-2"></i></a>
-                                <p><span class="span1 px-1">0</span></p>
-                            </div>
-                    @endforeach
-                            @guest()
-                                <input style="width:auto;" type="button" value="ثبت پاسخ ->" onclick="answer()">
-                            @endguest
-                            @auth()
-                        <a onclick="document.getElementById('answer').style.display='block'" style="width:auto;" href="{{route('question.answer', [$product->id,$i->id])}}">جواب</a>
-                            @endauth
+                                          <p><span class="span1 px-1">0</span></p>
+                                      </div>
+                                  </div>
+                              @else
+                                  <div class="d-flex py-3">
+                                      <p class="text-muted ms-4">پاسخ</p>
+                                      <p class="text-muted ">{{$i->answer}}</p>
+                                  </div>
+                                  <div class="d-flex justify-content-between">
+                                      <p class="text-muted">{{$i->user->name}}</p>
+                                      <div class="d-flex ">
+                                          @guest()
+                                              <a class="text-decoration-none text-info fw-bold h5 py-3"  onclick="answer()">ثبت پاسخ</a>
+                                          @endguest
+                                          @auth()
+                                              <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$i->id])}}">ثبت پاسخ</a>
+                                          @endauth
+                                          <p class="text-muted ps-5">آیا این پرسش مفید بود؟</p>
 
-                        <hr>
+                                          <a href="#" class="text-muted"><i class="fa-light
+                          fa-thumbs-up px-2"></i></a>
+                                          <p><span class="span1 px-1">4</span></p>
+                                          <a href="#" class="text-muted"> <i class="fa-light
+                          fa-thumbs-down px-2"></i></a>
+                                          <p><span class="span1 px-1">0</span></p>
+                                      </div>
+                                  </div>
+                              @endif
+
                     <hr>
-                    @endif
-                @endforeach
-                <hr>
-                <hr>
-            </section>
+                  </div>
+                        @endforeach
+                      @endif
+                      @endforeach
+                     @endif
+                  </div>
+              </div>
+
+
+
           </div>
 
           <script
@@ -822,45 +973,46 @@ $i=$product->comments->where('approved',true);
             src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
             integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          <script src="/cdn-swiper-js/swiper-bundle.min.js"></script>
           <script src="https://kit.fontawesome.com/aaa6b9c8c0.js"
             crossorigin="anonymous"></script>
-          <script src="/js/scriptproduct.js"></script>
+          <script src="/scriptproduct.js"></script>
       <script>
-        // Get the modal
-        var comment_form = document.getElementById('comment');
+          // Get the modal
+          var comment_form = document.getElementById('comment');
 
-// When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == comment_form) {
-                comment_form.style.display = "none";
-            }
-        }
-        var question_form = document.getElementById('question');
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+              if (event.target == comment_form) {
+                  comment_form.style.display = "none";
+              }
+          }
+          var question_form = document.getElementById('question');
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == question_form) {
-                question_form.style.display = "none";
-            }
-        }
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+              if (event.target == question_form) {
+                  question_form.style.display = "none";
+              }
+          }
 
-        var answer_form = document.getElementById('answer');
+          var answer_form = document.getElementById('answer');
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == answer_form) {
-                answer_form.style.display = "none";
-            }
-        }
-        function comment() {
-            window.location.assign("http://localhost:8000/register")
-        }
-        function question() {
-            window.location.assign("http://localhost:8000/register")
-        }
-        function answer() {
-            window.location.assign("http://localhost:8000/register")
-        }
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+              if (event.target == answer_form) {
+                  answer_form.style.display = "none";
+              }
+          }
+          function comment() {
+              window.location.assign("http://localhost:8000/register")
+          }
+          function question() {
+              window.location.assign("http://localhost:8000/register")
+          }
+          function answer() {
+              window.location.assign("http://localhost:8000/register")
+          }
 
       </script>
         </body>

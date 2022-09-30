@@ -220,3 +220,116 @@ span.psw {
         width: 100%;
     }
 }
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family:iran-yekan;
+
+}
+@font-face {
+    font-family: 'iran-yekan';
+    src: url(./font/BYekan+\ Bold.ttf);
+    src: url(./font/BYekan+.ttf);
+
+    font-family: salamat;
+    src: url(./font/Salamat.ttf);
+}
+a{
+    text-decoration: none;
+}
+.header{
+    font-family: iran-yekan;
+}
+.img-logo{
+    max-width:85px;
+    max-height: 45px;
+
+}
+.btn-login{
+    border: 1px solid black;
+}
+#search-form{
+    font-family:iran-yekan;
+    background-color: #f1f0f1;
+    direction:rtl;
+    background-image: url(./img/search-outline.svg);
+    background-repeat: no-repeat;
+    background-position: 97%;
+    padding-right: 2px;
+    background-size: 33px
+}
+.login-btn{
+    border: 1px solid #c4c7ce;
+}
+.icon-shop{
+    border-right: 2px solid #c4c7ce;
+}
+.text-nav{
+    color:#a1a3a8;
+}
+.navbar{
+    direction: ltr;
+}
+.navbar a{
+    font-size: 1rem;
+}
+.cont-fix{
+    position: sticky;
+    background-color: white;
+    z-index: 999;
+    top: 0px;
+}
+.p4-pruduct-select{
+    background-color: #f7f7f7;
+    border: 1px solid rgb(173, 169, 169);
+}
+.bascketbtn{
+    width: 90%;
+}
+.product.pag{
+    font-family:'Courier New', Courier, monospace;
+}
+.img-product-pad{
+    padding: 58px 0;
+}
+body a{
+    text-decoration: none;
+}
+.span1{
+    font-family: salamat;
+}
+.badge-danger{
+    background-color: rgb(220,53,69) !important;
+    height: fit-content;
+}
+.Specifications-c6{
+    line-height: 55px;
+}
+.rat:hover{
+    color: red;
+
+}
+.bade-sucsessg{
+    background-color: green !important;
+}
+.posi{
+
+
+}
+
+/*  .basket-pos-sticky{
+ position:sticky;
+ top: 0;
+ z-index: 990;
+} */
+.sub-quest{
+    padding-top: 100px;
+}
+.hr-1{
+    color: #3a3c41;
+}
+.ques {
+    margin-top: -14.5rem!important;
+}

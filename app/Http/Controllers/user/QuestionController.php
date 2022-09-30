@@ -32,7 +32,7 @@ class QuestionController extends Controller
         }
 
         $request->validate([
-           'answer' => ['required', 'min:3']
+           'answer' => ['required', 'min:3','max:100']
         ]);
 
         $product->question()->create([
