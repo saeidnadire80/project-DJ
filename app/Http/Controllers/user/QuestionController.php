@@ -41,7 +41,7 @@ class QuestionController extends Controller
             'answer' => $request->answer,
         ]);
 
-        return back();
+        return redirect()->route('single.product',compact('product'));
     }
 
     public function answer(Product $product,Question $question){

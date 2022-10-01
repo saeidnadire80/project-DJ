@@ -11,9 +11,22 @@
 <div id="answer" >
     <form class=" animate" action='' method="post">
         @csrf
-        <label for="answer"><b>answer</b></label>
-        <textarea placeholder="Enter answer" name="answer" >{{old('answer')}}</textarea>
-        <button type="submit">send</button>
+        <div class="imgcontainer">
+            <p class="me-4">به این پرسش پاسخ دهید
+
+            </p><p class="me-4">{{$question->Question}}
+
+            </p>
+            <br>
+            <i class="fa-light fa-xmark px-5"></i>
+
+            <hr>
+        </div>
+        <div class="container">
+            <textarea name="answer" type="text"class="w-100 pb-5 rounded-4">{{old('answer')}}</textarea>
+            <hr>
+            <input type="submit" class="btn btn-light py-4" value="ثبت پاسخ">
+        </div>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

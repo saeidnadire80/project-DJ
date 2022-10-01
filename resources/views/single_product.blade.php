@@ -52,11 +52,11 @@ $avr=round($avre);
 
             <div class="col-md-6 col-6 d-flex justify-content-end ">
 
-              <a class="text-black fw-bold text-decoration-none login-btn
+              @guest()<a class="text-black fw-bold text-decoration-none login-btn
                 text-center
                 rounded-3 justify-content-center align-content-center px-md-3
                 py-md-2"
-                href="#">
+                href="{{url('login')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16"
                   height="16" fill="currentColor" class="bi
                   bi-box-arrow-in-left ms-1 mt-2 me-3 d-none d-sm-inline"
@@ -76,6 +76,23 @@ $avr=round($avre);
                     <span class="ps-1">ورود</span>
                     <span class="d-none d-lg-inline"> | ثبت نام</span>
                   </a>
+                @endguest
+                @auth()
+                      <p class="text-black fw-bold text-decoration-none login-btn
+                text-center
+                rounded-3 justify-content-center align-content-center px-md-3
+                py-md-2">{{auth()->user()->name}}</p>
+                      <div class="dropdown">
+                          <button class="btn" style="border-left:1px solid navy">
+                              <i class="fa fa-caret-down"></i>
+                          </button>
+                          <div class="dropdown-content">
+                              <a href="#">Link 1</a>
+                              <a href="#">Link 2</a>
+                              <a href="#">Link 3</a>
+                          </div>
+                      </div>
+                  @endauth
                   <i class="bi bi-cart px-3 mx-4 mt-2 icon-shop fw-bolder"></i>
                 </div>
 
@@ -610,8 +627,58 @@ $avr=round($avre);
                           <input class="btn btn-outline-danger w-25" type="button" value="ثبت دیدگاه" onclick="comment()" value="ثبت دیدگاه">
                       @endguest
                       @auth()
-                          <a class="btn btn-outline-danger w-25 " href="{{route('comment',[$product->id])}}">ثبت دیدگاه</a>
+                          <button class="btn btn-outline-danger w-25 " onclick="document.getElementById('id01').style.display='block'" style="width:auto;">ثبت دیدگاه</button>
                       @endauth
+                      <div id="id01" class="modal">
+                          <form class="modal-content animate" action="{{route('comment',[$product->id])}}" method="post">
+                              @csrf
+                              <div class="imgcontainer">
+                                  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                              </div><br>
+                              <section>
+                                  <header class="container-fluid pt-3 mx-2 px-3 border-bottom
+            position-sticky">
+                                      <div class="row1 d-flex ">
+                                          <div class="col d-flex flex-column">
+                                              <p class="fw-bolder">دیدگاه شما</p>
+                                              <p class="text-muted">در مورد:{{$product->name_product}}</p>
+                                          </div>
+                                          <div class="col d-flex justify-content-end ">
+                                              <i class="fa fa-window-close "></i>
+                                          </div>
+                                      </div>
+                                  </header>
+                              </section>
+
+                              <div class="container">
+                                  <div class="text-center"><label for="customRange1"
+                                                                  class="form-label text-center">امتیاز دهید!: <span>عالی</span></label></div>
+                                  <input name="Score" type="range" class="form-range" min="1" max="5"
+                                         step="1" id="customRange1">
+
+                                  <p class="h4 me-5">دیدگاه خود را شرح دهید</p>
+                                  <p class="pt-5 h5 me-5">عنوان نظر</p>
+                                  <input type="hidden" name="id_product" value="{{$product->id}}">
+                                  <input type="text" name="title" class="w-75 me-4 py-3 rounded-4
+            titl-comment">
+                                  <p class="pt-5 h5 me-5">نکات مثبت</p>
+                                  <input type="text" name="positive_points" class="w-75 me-4 py-3 rounded-4
+            titl-comment">
+                                  <p class="pt-5 h5 me-5">نکات منفی</p>
+                                  <input type="text" name="cons" class="w-75 me-4 py-3 rounded-4
+            titl-comment">
+                                  <p class="pt-5 h5 me-5">متن نظر<span class="text-danger">*</span></p>
+                                  <input type="tel" name="comment" class="w-75 me-4 py-3 rounded-4
+            titl-comment pb-5 d-flex text-end" placeholder="برای ما بنویسید...">
+                                  <div class="d-flex p-4">
+                                      <input type="checkbox" name="Unknown" style="width:20px; height: 20px;"
+                                             class="pe-4"><p class="pe-3 lead">ارسال دیدگاه به
+                                          صورت ناشناس</p>
+                                  </div>
+                                  <input class="col-6 d-flex align-content-center btn btn-danger w-100 py-3" type="submit" value="ثبت دیدگاه">
+                              </div>
+                          </form>
+                      </div>
                       <p class="text-muted"><i
                               class="fa-light fa-circle-info pt-3 ps-2 "></i>۵ امتیاز
                           دیجی‌کلاب
@@ -698,9 +765,58 @@ $avr=round($avre);
                           <input class="btn btn-outline-danger w-75 my-2" type="button" value="ثبت دیدگاه" onclick="comment()" value="ثبت دیدگاه">
                       @endguest
                       @auth()
-                          <a class="btn btn-outline-danger w-75 my-2" href="{{route('comment',[$product->id])}}">ثبت دیدگاه</a>
+                          <button class="btn btn-outline-danger w-75 my-2" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">ثبت دیدگاه</button>
                       @endauth
+                      <div id="id01" class="modal">
+                          <form class="modal-content animate" action="{{route('comment',[$product->id])}}" method="post">
+                              @csrf
+                              <div class="imgcontainer">
+                                  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                              </div><br>
+                              <section>
+                                  <header class="container-fluid pt-3 mx-2 px-3 border-bottom
+            position-sticky">
+                                      <div class="row1 d-flex ">
+                                          <div class="col d-flex flex-column">
+                                              <p class="fw-bolder">دیدگاه شما</p>
+                                              <p class="text-muted">در مورد:{{$product->name_product}}</p>
+                                          </div>
+                                          <div class="col d-flex justify-content-end ">
+                                              <i class="fa fa-window-close "></i>
+                                          </div>
+                                      </div>
+                                  </header>
+                              </section>
 
+                              <div class="container">
+                                  <div class="text-center"><label for="customRange1"
+                                                                  class="form-label text-center">امتیاز دهید!: <span>عالی</span></label></div>
+                                  <input name="Score" type="range" class="form-range" min="1" max="5"
+                                         step="1" id="customRange1">
+
+                                  <p class="h4 me-5">دیدگاه خود را شرح دهید</p>
+                                  <p class="pt-5 h5 me-5">عنوان نظر</p>
+                                  <input type="hidden" name="id_product" value="{{$product->id}}">
+                                  <input type="text" name="title" class="w-75 me-4 py-3 rounded-4
+            titl-comment">
+                                  <p class="pt-5 h5 me-5">نکات مثبت</p>
+                                  <input type="text" name="positive_points" class="w-75 me-4 py-3 rounded-4
+            titl-comment">
+                                  <p class="pt-5 h5 me-5">نکات منفی</p>
+                                  <input type="text" name="cons" class="w-75 me-4 py-3 rounded-4
+            titl-comment">
+                                  <p class="pt-5 h5 me-5">متن نظر<span class="text-danger">*</span></p>
+                                  <input type="tel" name="comment" class="w-75 me-4 py-3 rounded-4
+            titl-comment pb-5 d-flex text-end" placeholder="برای ما بنویسید...">
+                                  <div class="d-flex p-4">
+                                      <input type="checkbox" name="Unknown" style="width:20px; height: 20px;"
+                                             class="pe-4"><p class="pe-3 lead">ارسال دیدگاه به
+                                          صورت ناشناس</p>
+                                  </div>
+                                  <input class="col-6 d-flex align-content-center btn btn-danger w-100 py-3" type="submit" value="ثبت دیدگاه">
+                              </div>
+                          </form>
+                      </div>
 
 
 
@@ -884,8 +1000,27 @@ $avr=round($avre);
                     @endguest
 
                     @auth()
-                        <a class="btn btn-outline-danger w-75 p-1 mb-4" href="{{route('question',[$product->id])}}">ثبت پرسش</a>
+                                        <button class="btn btn-outline-danger w-75 p-1 mb-4" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">ثبت پرسش</button>
                     @endauth
+                                    <div id="id02" class="modal">
+                                        <form class="modal-content animate" action="{{route('question',[$product->id])}}" method="post">
+                                            @csrf
+                                            <div class="imgcontainer">
+                                                        <p class="me-4">پرسش خود را درباره ی این کالا ثبت کنید</p>
+                                                        <i class="fa-light fa-xmark px-5"></i>
+
+                                                    <hr>
+                                                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+                                            </div>
+                                            <div class="container">
+                                                <input name="question" type="text"class="w-100 pb-5 rounded-4">
+                                                <input type="hidden" name="id_product" value="{{$product->id}}">
+                                                <hr>
+                                                <input type="submit" class="btn btn-light py-4" value="ثبت پرسش">
+                                            </div>
+
+                                        </form>
+                                    </div>
                 </div>
                 <!-- ==============================نمایش پاسخها ===========================-->
                 <div class="col-6 sub-quest">
@@ -902,31 +1037,23 @@ $avr=round($avre);
                     <div class="d-flex flex-row  py-4">
                       <i class="fa-light fa-square-question ms-3 text-info fw-bolder"></i>
                       <p class="h4">{{$item->Question}}</p>
-                        <div class="d-flex ">
-                            @guest()
-                                <a class="text-decoration-none text-info fw-bold h5 py-3"  onclick="answer()">ثبت پاسخ</a>
-                            @endguest
-                            @auth()
-                                <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$item->id])}}">ثبت پاسخ</a>
-                            @endauth
-
-                        </div>
                     </div>
+                      <hr>
                           @foreach($product->question->where('approved',true)->where('parent_id',$item->id) as $i)
                               @if(!empty($i->parent_id))
                                   <div class="d-flex py-3">
                                       <p class="text-muted ms-4">پاسخ</p>
                                       <p class="text-muted ">{{$i->answer}}</p>
                                   </div>
-                                  <div class="d-flex">
-                                  <p class="text-muted ps-5">آیا این پاسخ مفید بود؟</p>
+                                  <div class="d-flex justify-content-end">
+                                      <p class="text-muted ps-5">آیا این پاسخ مفید بود؟</p>
 
-                                  <a href="#" class="text-muted"><i class="fa-light
+                                      <a href="#" class="text-muted"><i class="fa-light
                           fa-thumbs-up px-2"></i></a>
-                                  <p><span class="span1 px-1">4</span></p>
-                                  <a href="#" class="text-muted"> <i class="fa-light
+                                      <p><span class="span1 px-1">4</span></p>
+                                      <a href="#" class="text-muted"> <i class="fa-light
                           fa-thumbs-down px-2"></i></a>
-                                  <p><span class="span1 px-1">0</span></p>
+                                      <p><span class="span1 px-1">0</span></p>
                                   </div>
                                   <div class="d-flex justify-content-between">
                                       <p class="text-muted">{{$i->user->name}}</p>
@@ -939,12 +1066,6 @@ $avr=round($avre);
                                   <div class="d-flex justify-content-between">
                                       <p class="text-muted">{{$i->user->name}}</p>
                                       <div class="d-flex ">
-                                          @guest()
-                                              <a class="text-decoration-none text-info fw-bold h5 py-3"  onclick="answer()">ثبت پاسخ</a>
-                                          @endguest
-                                          @auth()
-                                              <a onclick="document.getElementById('answer').style.display='block'" class="text-decoration-none text-info fw-bold h5 py-3" href="{{route('question.answer', [$product->id,$item->id])}}">ثبت پاسخ</a>
-                                          @endauth
                                           <p class="text-muted ps-5">آیا این پرسش مفید بود؟</p>
 
                                           <a href="#" class="text-muted"><i class="fa-light
@@ -960,6 +1081,15 @@ $avr=round($avre);
                     <hr>
                   </div>
                         @endforeach
+                     <div class="d-flex border-bottom ">
+                         @guest()
+                             <button  onclick="answer()">ثبت پاسخ</button>
+                         @endguest
+                         @auth()
+                             <a class="text-info py-2" style="width:auto;" href="{{route('question.answer',[$product->id,$item->id])}}"> ثبت پاسخ</a>
+                         @endauth
+
+                     </div>
                       @endif
                       @endforeach
                      @endif
@@ -983,43 +1113,6 @@ $avr=round($avre);
             crossorigin="anonymous"></script>
           <script src="/scriptproduct.js"></script>
                             <script src="js/comment.js"></script>
-                            <script>
-          // Get the modal
-          var comment_form = document.getElementById('comment');
-
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-              if (event.target == comment_form) {
-                  comment_form.style.display = "none";
-              }
-          }
-          var question_form = document.getElementById('question');
-
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-              if (event.target == question_form) {
-                  question_form.style.display = "none";
-              }
-          }
-
-          var answer_form = document.getElementById('answer');
-
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-              if (event.target == answer_form) {
-                  answer_form.style.display = "none";
-              }
-          }
-          function comment() {
-              window.location.assign("http://localhost:8000/register")
-          }
-          function question() {
-              window.location.assign("http://localhost:8000/register")
-          }
-          function answer() {
-              window.location.assign("http://localhost:8000/register")
-          }
-
-      </script>
+                            <script src="js/question.js"></script>
         </body>
       </html>

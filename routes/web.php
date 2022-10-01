@@ -54,5 +54,8 @@ Route::prefix('profile')->group(function (){
     Route::get('/',[ProfileController::class,'index'])->name('profile');
     Route::post('get_out/user',[ProfileController::class,'get_out']);
 });
+Route::get('tr',function(){
+    return view('user.icon_in_login');
+});
 
 
